@@ -9,11 +9,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace AuctionService.Data.Migrations
+namespace AuctionService.Migrations
 {
     [DbContext(typeof(LeilaoDbContext))]
-    [Migration("20250111184429_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250112115441_MigrationInicial")]
+    partial class MigrationInicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -77,7 +77,6 @@ namespace AuctionService.Data.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Ganhador")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("LeilaoEnd")

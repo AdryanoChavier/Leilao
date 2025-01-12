@@ -8,7 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace AuctionService.Data.Migrations
+namespace AuctionService.Migrations
 {
     [DbContext(typeof(LeilaoDbContext))]
     partial class LeilaoDbContextModelSnapshot : ModelSnapshot
@@ -74,7 +74,6 @@ namespace AuctionService.Data.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Ganhador")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTime>("LeilaoEnd")

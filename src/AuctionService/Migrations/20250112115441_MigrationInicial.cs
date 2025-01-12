@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace AuctionService.Data.Migrations
+namespace AuctionService.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class MigrationInicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,7 +18,7 @@ namespace AuctionService.Data.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     ReservaPreco = table.Column<int>(type: "integer", nullable: false),
                     Vendedor = table.Column<string>(type: "text", nullable: false),
-                    Ganhador = table.Column<string>(type: "text", nullable: false),
+                    Ganhador = table.Column<string>(type: "text", nullable: true),
                     QuantidadeVendida = table.Column<int>(type: "integer", nullable: true),
                     AtualOferta = table.Column<int>(type: "integer", nullable: true),
                     CreateAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
