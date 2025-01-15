@@ -1,6 +1,7 @@
 ﻿using MongoDB.Driver;
 using MongoDB.Entities;
 using PesquisaService.Models;
+using PesquisaService.Services;
 using System.Text.Json;
 
 namespace PesquisaService.Data
@@ -21,17 +22,13 @@ namespace PesquisaService.Data
 
             var count = await DB.CountAsync<Item>();
 
-            if (count == 0)
-            {
-                Console.WriteLine("Sem dados");
-                var itemData = await File.ReadAllTextAsync("Data/leiloes.json");
+            using var scope = app.Services.CreateScope();
 
-                var options = new JsonSerializerOptions{PropertyNameCaseInsensitive = true};
+            var httpClient = scope.ServiceProvider.GetRequiredService<LeilaoSvcHttpClient>();
 
-                var items = JsonSerializer.Deserialize<List<Item>>(itemData, options);
+            var items = await httpClient.GetItemsForPesquisaDb();
 
-                await DB.SaveAsync(items);
-            }
+            if(items.Count > 0) await DB.SaveAsync(items);
         }
     }
 }

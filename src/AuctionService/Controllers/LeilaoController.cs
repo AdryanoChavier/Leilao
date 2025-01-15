@@ -4,6 +4,7 @@ using AutoMapper;
 using AuctionService.DTOs;
 using Microsoft.EntityFrameworkCore;
 using AuctionService.Entities;
+using AutoMapper.QueryableExtensions;
 
 namespace AuctionService.Controllers
 {
@@ -21,13 +22,17 @@ namespace AuctionService.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<LeilaoDto>>> GetAllLeiloes()
+        public async Task<ActionResult<List<LeilaoDto>>> GetAllLeiloes(string? date)
         {
-            var leiloes = await _context.Leiloes
-                .Include(x => x.Item)
-                .OrderBy(x => x.Item.Marca)
-                .ToListAsync();
-            return _mapper.Map<List<LeilaoDto>>(leiloes);
+            var query = _context.Leiloes.OrderBy(x => x.Item.Marca).AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(date)) 
+            { 
+             query = query.Where(x => x.UpdatedAt.CompareTo(DateTime.Parse(date).ToUniversalTime()) > 0);
+
+            }
+
+            return await query.ProjectTo<LeilaoDto>(_mapper.ConfigurationProvider).ToListAsync();
         }
 
         [HttpGet("{id}")]
@@ -40,8 +45,8 @@ namespace AuctionService.Controllers
             if (leilao == null) return NotFound();
 
             return _mapper.Map<LeilaoDto>(leilao);
-
         }
+
         [HttpPost]
         public async Task<ActionResult<LeilaoDto>> CreateLeilao(CreateLeilaoDto leilaoDto)
         {
