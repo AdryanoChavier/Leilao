@@ -1,3 +1,4 @@
+using MassTransit;
 using PesquisaService.Data;
 using PesquisaService.Services;
 using Polly;
@@ -10,6 +11,13 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddHttpClient<LeilaoSvcHttpClient>().AddPolicyHandler(GetPolicy());
+builder.Services.AddMassTransit(x =>
+{
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.ConfigureEndpoints(context);
+    });
+});
 
 var app = builder.Build();
 
@@ -31,6 +39,7 @@ app.Lifetime.ApplicationStarted.Register(async () =>
     }
 
 });
+
 
 app.Run();
 
