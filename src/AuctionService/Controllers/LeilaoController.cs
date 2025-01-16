@@ -5,6 +5,8 @@ using AuctionService.DTOs;
 using Microsoft.EntityFrameworkCore;
 using AuctionService.Entities;
 using AutoMapper.QueryableExtensions;
+using MassTransit;
+using Contracts;
 
 namespace AuctionService.Controllers
 {
@@ -14,11 +16,13 @@ namespace AuctionService.Controllers
     {
         private readonly LeilaoDbContext _context;
         private readonly IMapper _mapper;
+        private readonly IPublishEndpoint _publishEndpoint;
 
-        public LeilaoController(LeilaoDbContext context, IMapper mapper)
+        public LeilaoController(LeilaoDbContext context, IMapper mapper, IPublishEndpoint publishEndpoint)
         {
             _context = context;
             _mapper = mapper;
+            _publishEndpoint = publishEndpoint;
         }
 
         [HttpGet]
@@ -58,9 +62,15 @@ namespace AuctionService.Controllers
 
             var result = await _context.SaveChangesAsync() > 0;
 
+            var newLeilao = _mapper.Map<LeilaoDto>(leilao);
+
+            await _publishEndpoint.Publish(_mapper.Map<LeilaoCreated>(newLeilao));
+
+
             if (!result) return BadRequest("Não foi salvo no banco");
 
-            return CreatedAtAction(nameof(GetLeilaoById), new { leilao.Id }, _mapper.Map<LeilaoDto>(leilao));
+            return CreatedAtAction(nameof(GetLeilaoById),
+                new { leilao.Id }, newLeilao);
         }
 
         [HttpPut("{id}")]

@@ -1,4 +1,5 @@
 using MassTransit;
+using PesquisaService.Consumers;
 using PesquisaService.Data;
 using PesquisaService.Services;
 using Polly;
@@ -10,9 +11,14 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddHttpClient<LeilaoSvcHttpClient>().AddPolicyHandler(GetPolicy());
 builder.Services.AddMassTransit(x =>
 {
+    x.AddConsumersFromNamespaceContaining<LeilaoCreatedCosumer>();
+
+    x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("pesquisa", false));
+
     x.UsingRabbitMq((context, cfg) =>
     {
         cfg.ConfigureEndpoints(context);
