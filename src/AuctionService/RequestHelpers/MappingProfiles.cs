@@ -15,6 +15,8 @@ namespace AuctionService.RequestHelpers
                 .ForMember(d => d.Item, o => o.MapFrom(s => s));
             CreateMap<CreateLeilaoDto, Item>();
             CreateMap<LeilaoDto, LeilaoCreated>();
+            CreateMap<Leilao, LeilaoUpdated>().IncludeMembers(a => a.Item);
+            CreateMap<Item, LeilaoUpdated>();
         }
     }
 }

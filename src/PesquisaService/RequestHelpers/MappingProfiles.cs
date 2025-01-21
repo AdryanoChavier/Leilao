@@ -9,6 +9,7 @@ namespace PesquisaService.RequestHelpers
         public MappingProfiles() 
         {
             CreateMap<LeilaoCreated, Item>();
+            CreateMap<LeilaoUpdated, Item>();
 
         }
     }

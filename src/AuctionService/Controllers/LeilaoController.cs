@@ -75,7 +75,8 @@ namespace AuctionService.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateLeilao(Guid id, AtualizarLeilaoDto atualizarLeilaoDto)
         {
-            var leilao = await _context.Leiloes.Include(x => x.Item).FirstOrDefaultAsync(x => x.Id == id);
+            var leilao = await _context.Leiloes.Include(x => x.Item)
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             if (leilao == null) return NotFound();
 
@@ -84,6 +85,8 @@ namespace AuctionService.Controllers
             leilao.Item.Cor = atualizarLeilaoDto.Cor ?? leilao.Item.Cor;
             leilao.Item.Quilometragem = atualizarLeilaoDto.Quilometragem ?? leilao.Item.Quilometragem;
             leilao.Item.Marca = atualizarLeilaoDto.Marca ?? leilao.Item.Marca;
+
+            await _publishEndpoint.Publish(_mapper.Map<LeilaoUpdated>(leilao));
 
             var result = await _context.SaveChangesAsync() > 0;
 
