@@ -2,11 +2,11 @@
 using Contracts;
 using PesquisaService.Models;
 
-namespace PesquisaService.RequestHelpers
+namespace PesquisaService.Middlewares.AutoMapper
 {
     public class MappingProfiles : Profile
     {
-        public MappingProfiles() 
+        public MappingProfiles()
         {
             CreateMap<LeilaoCreated, Item>();
             CreateMap<LeilaoUpdated, Item>();

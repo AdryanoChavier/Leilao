@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MongoDB.Entities;
+using PesquisaService.Middlewares.AutoMapper;
 using PesquisaService.Models;
-using PesquisaService.RequestHelpers;
 
 namespace PesquisaService.Controllers
 {
