@@ -1,7 +1,7 @@
 ﻿using Contracts;
 using MassTransit;
 
-namespace AuctionService.Consumers
+namespace AuctionService.Data.Consumers
 {
     public class LeilaoCreatedFaultoConsumer : IConsumer<Fault<LeilaoCreated>>
     {
@@ -11,7 +11,7 @@ namespace AuctionService.Consumers
 
             var exception = context.Message.Exceptions.First();
 
-            if(exception.ExceptionType == "System.ArgumentException")
+            if (exception.ExceptionType == "System.ArgumentException")
             {
                 context.Message.Message.Marca = "FooBar";
                 await context.Publish(context.Message.Message);

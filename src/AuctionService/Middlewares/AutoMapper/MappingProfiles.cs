@@ -3,7 +3,7 @@ using AuctionService.Entities;
 using AutoMapper;
 using Contracts;
 
-namespace AuctionService.RequestHelpers
+namespace AuctionService.Middlewares.AutoMapper
 {
     public class MappingProfiles : Profile
     {

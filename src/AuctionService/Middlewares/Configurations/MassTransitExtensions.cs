@@ -1,5 +1,5 @@
-﻿using AuctionService.Consumers;
-using AuctionService.Data;
+﻿using AuctionService.Data;
+using AuctionService.Data.Consumers;
 using MassTransit;
 
 namespace AuctionService.Middlewares.Configurations
