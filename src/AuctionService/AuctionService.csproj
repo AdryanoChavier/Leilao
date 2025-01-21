@@ -8,18 +8,11 @@
 
   <ItemGroup>
     <Compile Remove="Controllers\WeatherForecastController.cs" />
-    <Compile Remove="Data\Migrations\20250111184429_InitialCreate.cs" />
-    <Compile Remove="Data\Migrations\20250111184429_InitialCreate.Designer.cs" />
-    <Compile Remove="Data\Migrations\20250112112541_Ajustar no campo Ganhador.cs" />
-    <Compile Remove="Data\Migrations\20250112112541_Ajustar no campo Ganhador.Designer.cs" />
-    <Compile Remove="Data\Migrations\20250112114109_MigrationsTeste.cs" />
-    <Compile Remove="Data\Migrations\20250112114109_MigrationsTeste.Designer.cs" />
-    <Compile Remove="Data\Migrations\20250112114900_MigrationspraAjustarGanhador.cs" />
-    <Compile Remove="Data\Migrations\20250112114900_MigrationspraAjustarGanhador.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+    <PackageReference Include="MassTransit.EntityFrameworkCore" Version="8.1.0" />
     <PackageReference Include="MassTransit.RabbitMQ" Version="8.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
       <PrivateAssets>all</PrivateAssets>

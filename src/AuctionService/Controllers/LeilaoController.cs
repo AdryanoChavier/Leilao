@@ -60,12 +60,11 @@ namespace AuctionService.Controllers
 
             _context.Leiloes.Add(leilao);
 
-            var result = await _context.SaveChangesAsync() > 0;
-
             var newLeilao = _mapper.Map<LeilaoDto>(leilao);
 
             await _publishEndpoint.Publish(_mapper.Map<LeilaoCreated>(newLeilao));
 
+            var result = await _context.SaveChangesAsync() > 0;
 
             if (!result) return BadRequest("Não foi salvo no banco");
 

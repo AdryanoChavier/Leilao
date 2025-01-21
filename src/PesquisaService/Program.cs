@@ -21,6 +21,12 @@ builder.Services.AddMassTransit(x =>
 
     x.UsingRabbitMq((context, cfg) =>
     {
+        cfg.ReceiveEndpoint("pesquisa-leilao-created", e =>
+        {
+            e.UseMessageRetry(r => r.Interval(5,5));
+
+            e.ConfigureConsumer<LeilaoCreatedCosumer>(context);
+        });
         cfg.ConfigureEndpoints(context);
     });
 });

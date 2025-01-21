@@ -20,6 +20,8 @@ namespace PesquisaService.Consumers
 
             var item = _mapper.Map<Item>(context.Message);
 
+            if (item.Marca == "Foo") throw new ArgumentException("Cannot sell cars with name of Foo");
+
             await item.SaveAsync();
         }
     }

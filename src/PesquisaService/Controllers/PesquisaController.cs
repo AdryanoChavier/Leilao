@@ -30,7 +30,7 @@ namespace PesquisaService.Controllers
             query = filtro.FilterBy switch
             {
                 "finalizado" => query.Match(x => x.LeilaoEnd < DateTime.UtcNow),
-                "finalizadobreve" => query.Match(x => x.LeilaoEnd < DateTime.UtcNow.AddHours(6) 
+                "finalizadobreve" => query.Match(x => x.LeilaoEnd < DateTime.UtcNow.AddHours(6)
                 && x.LeilaoEnd > DateTime.UtcNow),
                 _ => query.Match(x => x.LeilaoEnd > DateTime.UtcNow)
             };
