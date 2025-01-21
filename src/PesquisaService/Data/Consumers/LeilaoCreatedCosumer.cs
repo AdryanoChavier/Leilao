@@ -4,14 +4,14 @@ using MassTransit;
 using MongoDB.Entities;
 using PesquisaService.Models;
 
-namespace PesquisaService.Consumers
+namespace PesquisaService.Data.Consumers
 {
     public class LeilaoCreatedCosumer : IConsumer<LeilaoCreated>
     {
         private readonly IMapper _mapper;
         public LeilaoCreatedCosumer(IMapper mapper)
         {
-         _mapper = mapper;
+            _mapper = mapper;
         }
 
         public async Task Consume(ConsumeContext<LeilaoCreated> context)

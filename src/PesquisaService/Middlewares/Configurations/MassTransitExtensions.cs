@@ -1,5 +1,5 @@
 ﻿using MassTransit;
-using PesquisaService.Consumers;
+using PesquisaService.Data.Consumers;
 
 namespace PesquisaService.Middlewares.Configurations
 {

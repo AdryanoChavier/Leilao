@@ -4,13 +4,13 @@ using MassTransit;
 using MongoDB.Entities;
 using PesquisaService.Models;
 
-namespace PesquisaService.Consumers
+namespace PesquisaService.Data.Consumers
 {
     public class LeilaoUpdatedConsumer : IConsumer<LeilaoUpdated>
     {
         private readonly IMapper _mapper;
 
-        public LeilaoUpdatedConsumer (IMapper mapper)
+        public LeilaoUpdatedConsumer(IMapper mapper)
         {
             _mapper = mapper;
         }
@@ -29,11 +29,11 @@ namespace PesquisaService.Consumers
                     x.Modelo,
                     x.Ano,
                     x.Quilometragem
-                },Item)
+                }, Item)
                 .ExecuteAsync();
 
-            if(!result.IsAcknowledged) throw new MessageException(typeof(LeilaoUpdated),"Problema no Updade MongoDB");
-            
+            if (!result.IsAcknowledged) throw new MessageException(typeof(LeilaoUpdated), "Problema no Updade MongoDB");
+
         }
     }
 }

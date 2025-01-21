@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using MongoDB.Entities;
 using PesquisaService.Models;
 
-namespace PesquisaService.Consumers
+namespace PesquisaService.Data.Consumers
 {
     public class LeilaoDeletedConsumer : IConsumer<LeilaoDeleted>
     {
