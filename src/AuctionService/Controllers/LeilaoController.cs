@@ -104,6 +104,8 @@ namespace AuctionService.Controllers
 
             _context.Leiloes.Remove(leilao);
 
+            await _publishEndpoint.Publish<LeilaoDeleted>(new { Id = leilao.Id.ToString() });
+
             var result = await _context.SaveChangesAsync() > 0;
 
             if (!result) return BadRequest("Erro ao deletar");
